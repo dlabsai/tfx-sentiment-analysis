@@ -38,7 +38,7 @@ def run() -> None:
         # We don't aim for superior accuracy
         eval_accuracy_threshold=0.6,
         # Fast tuning runs
-        tune_epochs=5,
+        tune_epochs=2,
         tune_patience=1,
         # A bit longer training run
         train_epochs=10,
