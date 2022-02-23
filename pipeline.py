@@ -34,13 +34,13 @@ def create_pipeline(
     output_config = tfx.proto.Output(
         split_config=tfx.proto.SplitConfig(splits=splits),
     )
-    example_gen = tfx.components.CsvExampleGen(
+    example_gen = tfx.components.CsvExampleGen(  # type:ignore[attr-defined]
         input_base=data_path, output_config=output_config
     )
     yield example_gen
 
     # Computes statistics over data for visualization and example validation.
-    statistics_gen = tfx.components.StatisticsGen(
+    statistics_gen = tfx.components.StatisticsGen(  # type:ignore[attr-defined]
         examples=example_gen.outputs["examples"]
     )
     yield statistics_gen
@@ -50,13 +50,13 @@ def create_pipeline(
     # on the auto-generated schema.
     # Otherwise one can use `ImportSchemaGen` to import customized schema
     # and `ExampleValidator` to check if examples are conforming to the schema.
-    schema_gen = tfx.components.SchemaGen(
+    schema_gen = tfx.components.SchemaGen(  # type:ignore[attr-defined]
         statistics=statistics_gen.outputs["statistics"], infer_feature_shape=True
     )
     yield schema_gen
 
     # Performs data preprocessing and feature engineering
-    transform = tfx.components.Transform(
+    transform = tfx.components.Transform(  # type:ignore[attr-defined]
         examples=example_gen.outputs["examples"],
         schema=schema_gen.outputs["schema"],
         # the preprocessing callback function can be provided as importable name
@@ -71,9 +71,9 @@ def create_pipeline(
 
     if use_previous_hparams:
         # Find latest best hyperparameters computed in a previous run
-        hparams_resolver = tfx.dsl.Resolver(
-            strategy_class=tfx.dsl.experimental.LatestArtifactStrategy,
-            hyperparameters=tfx.dsl.Channel(
+        hparams_resolver = tfx.dsl.Resolver(  # type:ignore[attr-defined]
+            strategy_class=tfx.dsl.experimental.LatestArtifactStrategy,  # type:ignore[attr-defined]
+            hyperparameters=tfx.dsl.Channel(  # type:ignore[attr-defined]
                 type=tfx.types.standard_artifacts.HyperParameters
             ),
         ).with_id("latest_hyperparams_resolver")
@@ -116,10 +116,14 @@ def create_pipeline(
     yield trainer
 
     # Get the latest blessed model for model validation comparison.
-    model_resolver = tfx.dsl.Resolver(
-        strategy_class=tfx.dsl.experimental.LatestBlessedModelStrategy,
-        model=tfx.dsl.Channel(type=tfx.types.standard_artifacts.Model),
-        model_blessing=tfx.dsl.Channel(type=tfx.types.standard_artifacts.ModelBlessing),
+    model_resolver = tfx.dsl.Resolver(  # type:ignore[attr-defined]
+        strategy_class=tfx.dsl.experimental.LatestBlessedModelStrategy,  # type:ignore[attr-defined]
+        model=tfx.dsl.Channel(  # type:ignore[attr-defined]
+            type=tfx.types.standard_artifacts.Model
+        ),
+        model_blessing=tfx.dsl.Channel(  # type:ignore[attr-defined]
+            type=tfx.types.standard_artifacts.ModelBlessing
+        ),
     ).with_id("latest_blessed_model_resolver")
     yield model_resolver
 
@@ -159,7 +163,7 @@ def create_pipeline(
             )
         ],
     )
-    evaluator = tfx.components.Evaluator(
+    evaluator = tfx.components.Evaluator(  # type:ignore[attr-defined]
         examples=example_gen.outputs["examples"],
         example_splits=["eval"],  # split of examples to use for evaluation
         model=trainer.outputs["model"],  # candidate model

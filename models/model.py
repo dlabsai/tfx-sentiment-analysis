@@ -122,7 +122,8 @@ def _get_transform_features_signature(
 
 def _input_fn(
     file_pattern: List[str],  # TFRecord file names
-    data_accessor: tfx.components.DataAccessor,  # TFX dataset loading helper
+    # TFX dataset loading helper
+    data_accessor: tfx.components.DataAccessor,  # type:ignore[name-defined]
     schema: schema_pb2.Schema,  # Dataset schema
     batch_size: int,  # batch size
 ) -> tf.data.Dataset:
@@ -216,7 +217,9 @@ def _build_keras_model_with_strategy(
 
 
 # TFX Trainer will call this function.
-def run_fn(fn_args: tfx.components.FnArgs) -> None:
+def run_fn(
+    fn_args: tfx.components.FnArgs,  # type:ignore[name-defined]
+) -> None:
     """Train the model based on given args."""
     # Load the Transform component output
     tf_transform_output = tft.TFTransformOutput(fn_args.transform_output)
@@ -299,7 +302,9 @@ def run_fn(fn_args: tfx.components.FnArgs) -> None:
 
 
 # TFX Tuner will call this function.
-def tuner_fn(fn_args: tfx.components.FnArgs) -> tfx.components.TunerFnResult:
+def tuner_fn(
+    fn_args: tfx.components.FnArgs,  # type:ignore[name-defined]
+) -> tfx.components.TunerFnResult:  # type:ignore[name-defined]
     """Build the tuner using the KerasTuner API."""
 
     # Number of different hyperparameter combinations to check
@@ -343,7 +348,7 @@ def tuner_fn(fn_args: tfx.components.FnArgs) -> tfx.components.TunerFnResult:
     )
 
     # Request hyperparameter tuning
-    return tfx.components.TunerFnResult(
+    return tfx.components.TunerFnResult(  # type:ignore[attr-defined]
         tuner=tuner,
         fit_kwargs={
             "x": train_dataset,

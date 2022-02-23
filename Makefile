@@ -1,5 +1,5 @@
 # The repository address for the docker image
-IMAGE="europe-west4-docker.pkg.dev/tfx-article/sentiment-analysis-repo/sentiment-analysis-image:latest"
+IMAGE=europe-west4-docker.pkg.dev/tfx-article/sentiment-analysis-repo/sentiment-analysis-image:latest
 #  The location of JSON service account credentials file
 GOOGLE_APPLICATION_CREDENTIALS="$(shell pwd)/service_account_key.json"
 
@@ -150,7 +150,12 @@ mypy:
 		--volume "$(shell pwd)/local_runner.py:/tfx/src/local_runner.py:ro" \
 		--volume "$(shell pwd)/vertex_ai_runner.py:/tfx/src/vertex_ai_runner.py:ro" \
 		"$(IMAGE)" \
+		--pretty \
+		--show-error-context \
+		--show-error-codes \
 		models/ \
 		pipeline.py \
 		local_runner.py \
 		vertex_ai_runner.py
+
+check: black isort lint mypy
