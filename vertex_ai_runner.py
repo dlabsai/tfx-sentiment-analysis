@@ -49,10 +49,10 @@ def run() -> None:
         pipeline_helper,
         # Input data in Cloud Storage
         data_path="gs://tfx-article/input_data/",
-        # Run a few hyperparameter tuning trails
-        number_of_trials=4,
-        # Make the trails short
-        tune_epochs=1,
+        # Run a few hyperparameter tuning trials
+        number_of_trials=10,
+        # Make the trials short
+        tune_epochs=3,
         tune_patience=1,
         # Make the final training long (aim for best accuracy)
         train_epochs=50,
