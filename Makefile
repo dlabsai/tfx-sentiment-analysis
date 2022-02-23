@@ -128,12 +128,28 @@ lint:
 	docker run \
 		-it --rm \
 		--entrypoint flake8 \
-		--volume "$(shell pwd)/models:/tfx/src/models:rw" \
-		--volume "$(shell pwd)/pipeline.py:/tfx/src/pipeline.py:rw" \
-		--volume "$(shell pwd)/local_runner.py:/tfx/src/local_runner.py:rw" \
-		--volume "$(shell pwd)/vertex_ai_runner.py:/tfx/src/vertex_ai_runner.py:rw" \
+		--volume "$(shell pwd)/models:/tfx/src/models:ro" \
+		--volume "$(shell pwd)/pipeline.py:/tfx/src/pipeline.py:ro" \
+		--volume "$(shell pwd)/local_runner.py:/tfx/src/local_runner.py:ro" \
+		--volume "$(shell pwd)/vertex_ai_runner.py:/tfx/src/vertex_ai_runner.py:ro" \
 		"$(IMAGE)" \
 		--ignore E501 \
+		models/ \
+		pipeline.py \
+		local_runner.py \
+		vertex_ai_runner.py
+
+
+# Type-check the code
+mypy:
+	docker run \
+		-it --rm \
+		--entrypoint mypy \
+		--volume "$(shell pwd)/models:/tfx/src/models:ro" \
+		--volume "$(shell pwd)/pipeline.py:/tfx/src/pipeline.py:ro" \
+		--volume "$(shell pwd)/local_runner.py:/tfx/src/local_runner.py:ro" \
+		--volume "$(shell pwd)/vertex_ai_runner.py:/tfx/src/vertex_ai_runner.py:ro" \
+		"$(IMAGE)" \
 		models/ \
 		pipeline.py \
 		local_runner.py \

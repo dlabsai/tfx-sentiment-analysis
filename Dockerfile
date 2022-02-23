@@ -2,7 +2,7 @@
 FROM gcr.io/tfx-oss-public/tfx:1.6.1
 
 # Install additional dependencies
-RUN python -m pip install -q 'tfx[kfp]==1.6.1' tensorflow-text tfx-helper
+RUN python -m pip install -q 'tfx[kfp]==1.6.1' tensorflow-text tfx-helper==0.0.3
 
 # Install development tools
 RUN python -m pip install ipdb mypy isort flake8
