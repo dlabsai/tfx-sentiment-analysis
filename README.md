@@ -1,2 +1,3 @@
 # tfx-sentiment-analysis
-TFX pipeline for sentiment analysis
+
+End-to-end TFX pipeline for sentiment analysis

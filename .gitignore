@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Pipeline artifacts
+tfx_pipeline_output/
+
+# Service account credentials
+service_account_key.json
