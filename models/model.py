@@ -6,7 +6,6 @@ import tensorflow_hub as hub
 import tensorflow_transform as tft
 from absl import logging
 from tensorflow_metadata.proto.v0 import schema_pb2
-from tensorflow_transform.tf_metadata import schema_utils
 from tfx import v1 as tfx
 from tfx_bsl.public import tfxio
 

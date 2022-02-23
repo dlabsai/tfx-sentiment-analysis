@@ -122,3 +122,19 @@ isort:
 		pipeline.py \
 		local_runner.py \
 		vertex_ai_runner.py
+
+# Lint the code
+lint:
+	docker run \
+		-it --rm \
+		--entrypoint flake8 \
+		--volume "$(shell pwd)/models:/tfx/src/models:rw" \
+		--volume "$(shell pwd)/pipeline.py:/tfx/src/pipeline.py:rw" \
+		--volume "$(shell pwd)/local_runner.py:/tfx/src/local_runner.py:rw" \
+		--volume "$(shell pwd)/vertex_ai_runner.py:/tfx/src/vertex_ai_runner.py:rw" \
+		"$(IMAGE)" \
+		--ignore E501 \
+		models/ \
+		pipeline.py \
+		local_runner.py \
+		vertex_ai_runner.py
