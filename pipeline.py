@@ -153,10 +153,10 @@ def create_pipeline(
                             ),
                             # Require the candidate model to be better than
                             # previous (baseline) model by given margin
-                            # change_threshold=tfma.GenericChangeThreshold(
-                            #     direction=tfma.MetricDirection.HIGHER_IS_BETTER,
-                            #     absolute={"value": -1e-10},
-                            # ),
+                            change_threshold=tfma.GenericChangeThreshold(
+                                direction=tfma.MetricDirection.HIGHER_IS_BETTER,
+                                absolute={"value": -1e-10},
+                            ),
                         ),
                     )
                 ]
