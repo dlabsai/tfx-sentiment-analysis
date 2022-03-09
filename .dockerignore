@@ -1,0 +1,9 @@
+tfx_pipeline_output/
+.gitignore
+.direnv/
+nbs/
+.git/
+__pycache__
+.envrc
+Makefile
+README.md
