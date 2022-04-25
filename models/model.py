@@ -306,10 +306,8 @@ def tuner_fn(
     fn_args: tfx.components.FnArgs,  # type:ignore[name-defined]
 ) -> tfx.components.TunerFnResult:  # type:ignore[name-defined]
     """Build the tuner using the KerasTuner API."""
-
     # Number of different hyperparameter combinations to check
     number_of_trials: int = fn_args.custom_config["number_of_trials"]
-
     # RandomSearch is a subclass of keras_tuner.Tuner which inherits from
     # BaseTuner.
     tuner = keras_tuner.RandomSearch(
@@ -346,7 +344,6 @@ def tuner_fn(
     early_stopping_callback = tf.keras.callbacks.EarlyStopping(
         monitor="val_loss", patience=patience, verbose=1, restore_best_weights=True
     )
-
     # Request hyperparameter tuning
     return tfx.components.TunerFnResult(  # type:ignore[attr-defined]
         tuner=tuner,
