@@ -4,7 +4,7 @@ End-to-end *TFX* pipeline for sentiment analysis
 
 ## More info
 
-Link to article describing creation of this *TFX* pipeline for sentiment analysis: [LINK_GOES_HERE](https://dlabs.ai/blog/)
+Link to article describing creation of this *TFX* pipeline for sentiment analysis: [https://dlabs.ai/resources/courses/bert-sentiment-analysis-on-vertex-ai-using-tfx/](https://dlabs.ai/resources/courses/bert-sentiment-analysis-on-vertex-ai-using-tfx/)
 
 ## Technical details
 
